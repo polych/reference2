@@ -1,0 +1,14 @@
+<div>
+    <button mat-dialog-close class="fas fa-times mat-close-dialog-button"></button>
+</div>
+
+<div>
+    <ngx-select [multiple]="true" [items]="movements" [optionTextField]="'movement'" [optionValueField]="'m_id'" [autoClearSearch]="true" [(ngModel)]="selectedMovementsIds" placeholder="No movement selected">
+    </ngx-select>
+</div>
+
+<div class="button__back">
+    <button [matDialogClose]="selectedMovementsIds" mat-stroked-button>
+    Add
+  </button>
+</div>

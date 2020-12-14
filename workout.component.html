@@ -1,0 +1,45 @@
+<div class="header">
+    <i (click)="navigation.openWorkoutTypes()" class="fas fa-angle-left back-arrow"></i>
+    <span class="title">{{workoutType.title}}</span>
+</div>
+
+<div class="workout__header" cdkDropList>
+    <i cdkDrag [cdkDragData]="workout" class="fas fa-dumbbell drag">
+    <event
+      *cdkDragPreview
+      [workout]="workout"
+    >
+    </event>
+  </i>
+    <div *ngIf="!editMode" class="title">{{workout.workout ? workout.workout : 'Workout #1'}}</div>
+    <input class="title" #input *ngIf="editMode" [(ngModel)]="workout.workout" (blur)="editMode=false">
+    <i (click)="editTitle()" class="far fa-edit edit"></i>
+</div>
+
+<div class="row">
+    Description
+    <textarea class="workout__description" [(ngModel)]="workout.workout_description" (blur)="handleDescription()" (keyup.enter)="handleDescription()"></textarea>
+    <div class="scoring">
+        <mat-form-field>
+            <mat-select placeholder="Scoring" [(value)]="workout.set_nums">
+                <mat-option *ngFor="let score of scoring" [value]="score">
+                    {{score}} Score
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Of" [(value)]="workout.ms_id">
+                <mat-option *ngFor="let measurementType of measurementTypes|keyvalue" [value]="measurementType.key">
+                    {{measurementType.value}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="movements">
+        <div *ngFor="let movement of workout.movements; index as index" class="movement">
+            {{movement.movement}}
+            <i (click)="removeMovement(index)" class="fas fa-times button__remove-movement"></i>
+        </div>
+        <i (click)="openMovementSelection()" class="fas fa-plus-circle button__add-movement"></i>
+    </div>
+</div>
